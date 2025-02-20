@@ -150,7 +150,7 @@ nuctl create project cvat
 ```
 nuctl get projects
 ```
-來查看創建的project
+來查看創建的project  
 ![alt text](pic/image-10.png)
 
 # Clone smartsurgerytek/dentistry-annotation-nuclio/repo
