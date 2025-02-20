@@ -5,7 +5,7 @@
     ssh-keygen
     ```  
 - 找到id_rsa.pub並增加名稱
-![alt text](pic\image-3.png)
+![alt text](pic/image-3.png)
 # 環境變數  
 ```
 export EMAIL=your_account@smartsurgerytek.com
@@ -19,8 +19,8 @@ export CVAT_HOST="${GCP_SUBDOMAIN}.smartsurgerytek.net"
 ```
 - your_account：改成自己的公司信箱 ex. lianchia.lin@smartsurgerytek.com
 - YOUR_NAME：改成自己的名稱 ex.lianchia
-- PUBLIC_KEY_PATH：改成自己的SSH Key的公開金鑰路徑 ex. /HOME/lianchia/.ssh/id_rsa.pub
-![alt text](pic\image.png)
+- PUBLIC_KEY_PATH：改成自己的SSH Key的公開金鑰路徑 ex. /HOME/lianchia/.ssh/id_rsa.pub  
+![alt text](pic/image.png)
 - GCP_SUBDOMAIN：改成自己的網域 ex. dev8
 ```
 export EMAIL=lianchia.lin@smartsurgerytek.com
@@ -56,7 +56,7 @@ gcloud compute instances create $INSTANCE_NAME \
   --tags=cvat-server-8080 \
   --metadata-from-file ssh-keys=$PUBLIC_KEY_PATH
 ```
-![alt text](pic\image-4.png)
+![alt text]((pic/image-4.png)
 # 尋找機器
 ```
 gcloud compute instances list
@@ -72,7 +72,7 @@ export EXTERNAL_IP=xxx.xxx.xxx.xxx
 ```
 gcloud compute addresses create $INSTANCE_NAME-ip --addresses $EXTERNAL_IP --region asia-east1
 ```
-![alt text](pic\image-5.png)
+![alt text](pic/image-5.png)
 - $INSTANCE_NAME在最一開始的環境變數設定過了
 - $EXTERNAL_IP也是前一部設定的
 
@@ -99,7 +99,7 @@ gcloud dns record-sets transaction execute --zone=smartsurgerytek-net
 ```
 gcloud compute ssh --zone $GCP_ZONE $INSTANCE_NAME  -- "export CVAT_HOST=${CVAT_HOST} && exec bash -l"
 ```
-![alt text](pic\image-6.png)
+![alt text](pic/image-6.png)
 
 # 安裝Docker
 ```
@@ -117,7 +117,7 @@ newgrp docker
 ```
 docker --version
 ```
-![alt text](pic\image-7.png)
+![alt text](pic/image-7.png)
 
 # Clone Cvat repo
 ```
@@ -129,7 +129,7 @@ cd dentistry-annotation-cvat
 docker compose -f docker-compose.yml -f docker-compose.dev.yml build
 docker compose -f docker-compose.yml -f components/serverless/docker-compose.serverless.yml up -d
 ```
-![alt text](pic\image-8.png)
+![alt text](pic/image-8.png)
 安裝的同時，可以開新的posh連進機器去下載Nuclio
 
 # 安裝Nuclio
@@ -145,13 +145,13 @@ sudo mv nuctl /usr/local/bin/
 ```
 nuctl create project cvat
 ```
-![alt text](pic\image-9.png)
+![alt text](pic/image-9.png)
 可以使用
 ```
 nuctl get projects
 ```
 來查看創建的project
-![alt text](pic\image-10.png)
+![alt text](pic/image-10.png)
 
 # Clone smartsurgerytek/dentistry-annotation-nuclio/repo
 ```
@@ -159,14 +159,14 @@ cd ~
 git clone https://github.com/smartsurgerytek/dentistry-annotation-nuclio.git
 cd dentistry-annotation-nuclio
 ```
-![alt text](pic\image-11.png)
+![alt text](pic/image-11.png)
 # 把模型部署上去
 ```
 nuctl deploy measurement --path ./src/measurement/ --project-name cvat --platform local
 nuctl deploy segmentation --path ./src/segmentation/ --project-name cvat --platform local
 ```
 DOCKER跑完後會出現：
-![alt text](pic\image-12.png)
+![alt text](pic/image-12.png)
 CVAT設定
 ```
 docker exec -it cvat_server python manage.py migrate
@@ -174,17 +174,17 @@ docker exec -it cvat_server python manage.py collectstatic
 docker exec -it cvat_server python manage.py syncperiodicjobs
 docker exec -it cvat_server python manage.py createsuperuser --username admin
 ```
-![alt text](pic\image-13.png)
+![alt text](pic/image-13.png)
 
 可以打
 ```
 echo "http://${CVAT_HOST}:8080"
 ```
-![alt text](pic\image-14.png)
-![alt text](pic\image-15.png)
+![alt text](pic/image-14.png)
+![alt text](pic/image-15.png)
 
 # measurement
-![alt text](pic\image-16.png)
+![alt text](pic/image-16.png)
 
 # segmentation
-![alt text](pic\image-17.png)
+![alt text](pic/image-17.png)
