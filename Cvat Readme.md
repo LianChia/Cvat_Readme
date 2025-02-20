@@ -56,7 +56,7 @@ gcloud compute instances create $INSTANCE_NAME \
   --tags=cvat-server-8080 \
   --metadata-from-file ssh-keys=$PUBLIC_KEY_PATH
 ```
-![alt text]((pic/image-4.png)
+![alt text](pic/image-4.png)
 # 尋找機器
 ```
 gcloud compute instances list
