@@ -78,8 +78,7 @@ gcloud compute addresses create $INSTANCE_NAME-ip --addresses $EXTERNAL_IP --reg
 
 # 設定GCP
 ```
-gcloud dns record-sets transaction start 
---zone=smartsurgerytek-net
+gcloud dns record-sets transaction start --zone=smartsurgerytek-net
 ```
 - 開始設定DNS
 ```
